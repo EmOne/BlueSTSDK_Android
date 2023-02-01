@@ -653,7 +653,7 @@ public class Node{
          */
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
-            //Log.d(TAG,"Change Char: "+characteristic.getUuid().toString());
+            Log.d(TAG,"Change Char: "+characteristic.getUuid().toString());
             //if it comes form the console service we send to it
             if(mDebugConsole!=null &&
                     BLENodeDefines.Services.Debug.isDebugCharacteristics(characteristic.getUuid()))
@@ -674,7 +674,7 @@ public class Node{
          */
         @Override
         public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
-            //Log.d(TAG,"Read Char: "+characteristic.getUuid().toString());
+            Log.d(TAG,"Read Char: "+characteristic.getUuid().toString());
             if(status == BluetoothGatt.GATT_SUCCESS) {
                 if (mDebugConsole != null &&
                         BLENodeDefines.Services.Debug.isDebugCharacteristics(characteristic.getUuid()))
@@ -694,10 +694,10 @@ public class Node{
 
         @Override
         public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
-            /*Log.d(TAG, "onDescriptorWrite: "+
+            Log.d(TAG, "onDescriptorWrite: "+
                     descriptor.getCharacteristic().getUuid()+
                     "size: "+mWriteDescQueue.size()+
-                    "success: "+(status == BluetoothGatt.GATT_SUCCESS));*/
+                    "success: "+(status == BluetoothGatt.GATT_SUCCESS));
             //descriptor write -> remove from the queue
             if(status == BluetoothGatt.GATT_SUCCESS)
                 dequeueWriteDesc(new WriteDescCommand(descriptor,descriptor.getValue()));
@@ -724,7 +724,7 @@ public class Node{
                 Log.e(TAG,"Write notification and last write operation are on different char: "
                         +out.characteristic.getUuid() +" vs "+characteristic.getUuid());
             }else {
-            //Log.d(TAG, "onCharacteristicWrite: "+mCharacteristicWriteQueue.size()+" success: "+(status == BluetoothGatt.GATT_SUCCESS));
+                Log.d(TAG, "onCharacteristicWrite: "+mCharacteristicWriteQueue.size()+" success: "+(status == BluetoothGatt.GATT_SUCCESS));
             }
             boolean writeSuccess = status == BluetoothGatt.GATT_SUCCESS;
             if (mDebugConsole != null &&
